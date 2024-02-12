@@ -4,16 +4,13 @@
  */
 package Presentacion.views;
 
-/**
- *
- * @author User
- */
-public class principal extends javax.swing.JPanel {
+import Presentacion.Dashboard;
 
-    /**
-     * Creates new form principal
-     */
-    public principal() {
+public class Principal extends javax.swing.JPanel {
+    private Dashboard dashboard;
+    
+    public Principal() {
+        this.dashboard = dashboard;
         initComponents();
     }
 

@@ -8,7 +8,9 @@ import Presentacion.Dashboard;
 import Logica.PeliculaService;
 import Datos.Pelicula;
 import Datos.Critica;
+import java.awt.Color;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,17 +18,23 @@ import javax.swing.table.DefaultTableModel;
  * @author User
  */
 public class Pelicula extends javax.swing.JPanel {
-    private Dashboard dashboard;
     private final PeliculaService peliculaService;
-
+    private Dashboard dashboard;
+    
     public Pelicula(Dashboard dashboard) {
         this.dashboard = dashboard;
         initComponents();
+        InitStyles();
         peliculaService = new PeliculaService();
         cargarTablaPeliculas();
     }
     
-private void cargarTablaPeliculas() {
+    private void InitStyles() {
+    title.putClientProperty("FlatLaf.style", "font: bold $h3.regular.font");
+    title.setForeground(Color.white);
+    }
+    
+    private void cargarTablaPeliculas() {
         // Obtiene el modelo de la tabla
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setRowCount(0); // Limpia la tabla antes de cargar los datos
@@ -155,8 +163,9 @@ private void cargarTablaPeliculas() {
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(bgLayout.createSequentialGroup()
                                 .addComponent(userSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(bgLayout.createSequentialGroup()
                                 .addGap(427, 427, 427)
@@ -210,13 +219,24 @@ private void cargarTablaPeliculas() {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        
+    int filaSeleccionada = jTable1.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+            int idPelicula = Integer.parseInt(modelo.getValueAt(filaSeleccionada, 0).toString());
+
+            if (dashboard != null) {
+                dashboard.navigateToEditPelicula(idPelicula);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No ha seleccionado ninguna película para editar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        if (dashboard != null) {
-            dashboard.ShowJPanel(new CreatePel());
-        }
+       CreatePelicula createPeliculaPanel = new CreatePelicula(dashboard); // Asegúrate de que CreatePelicula acepte Dashboard como argumento si necesita acceso a métodos de Dashboard
+        dashboard.ShowJPanel(createPeliculaPanel); // Utiliza el método existente para mostrar el nuevo panel
+    
     }//GEN-LAST:event_addButtonActionPerformed
 
 
