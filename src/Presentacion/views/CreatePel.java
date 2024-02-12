@@ -237,62 +237,16 @@ public boolean validarEntradas() {
     }//GEN-LAST:event_inputDateMoth3ActionPerformed
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel apPLbl;
-    private javax.swing.JLabel apPLbl1;
-    private javax.swing.JLabel apPLbl2;
-    private javax.swing.JLabel apPLbl3;
-    private javax.swing.JTextField apPTxt;
-    private javax.swing.JTextField apPTxt1;
-    private javax.swing.JTextField apPTxt2;
-    private javax.swing.JTextField apPTxt3;
-    private javax.swing.JPanel bg;
-    private javax.swing.JPanel bg1;
-    private javax.swing.JPanel bg2;
-    private javax.swing.JPanel bg3;
+ 
+
+
     private javax.swing.JPanel bg4;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JButton button;
-    private javax.swing.JButton button1;
-    private javax.swing.JButton button2;
-    private javax.swing.JButton button3;
-    private javax.swing.JLabel domLbl;
-    private javax.swing.JLabel domLbl1;
-    private javax.swing.JLabel domLbl2;
-    private javax.swing.JLabel domLbl3;
-    private javax.swing.JTextField domTxt;
-    private javax.swing.JTextField domTxt1;
-    private javax.swing.JTextField domTxt2;
-    private javax.swing.JTextField domTxt3;
     private javax.swing.JComboBox<String> inputCritica;
     private javax.swing.JFormattedTextField inputDateMoth3;
     private javax.swing.JTextField inputLugarEstreno;
     private javax.swing.JTextField inputNamePelicula;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JLabel nameLbl;
-    private javax.swing.JLabel nameLbl1;
-    private javax.swing.JLabel nameLbl2;
-    private javax.swing.JLabel nameLbl3;
-    private javax.swing.JTextField nameTxt;
-    private javax.swing.JTextField nameTxt1;
-    private javax.swing.JTextField nameTxt2;
-    private javax.swing.JTextField nameTxt3;
-    private javax.swing.JLabel phoneLbl;
-    private javax.swing.JLabel phoneLbl1;
-    private javax.swing.JLabel phoneLbl2;
-    private javax.swing.JLabel phoneLbl3;
-    private javax.swing.JTextField phoneTxt;
-    private javax.swing.JTextField phoneTxt1;
-    private javax.swing.JTextField phoneTxt2;
-    private javax.swing.JTextField phoneTxt3;
-    private javax.swing.JLabel title;
-    private javax.swing.JLabel title1;
-    private javax.swing.JLabel title2;
-    private javax.swing.JLabel title3;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel txtCritica;
     private javax.swing.JLabel txtFecha;
