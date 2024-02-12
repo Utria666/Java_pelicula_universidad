@@ -8,7 +8,7 @@ public class Pelicula {
     private Date fecha_estreno;
     private String lugar_estreno;
     private int id_critica; // ID de la crítica asociada
-    private String nombreCritica; // Nombre de la crítica asociada
+    private Critica critica;
 
     // Constructor vacío
     public Pelicula() {
@@ -25,9 +25,9 @@ public class Pelicula {
     }
 
     // Constructor para recuperación que incluye nombreCritica
-    public Pelicula(int id_pelicula, String titulo_pelicula, Date fecha_estreno, String lugar_estreno, int id_critica, String nombreCritica) {
+    public Pelicula(int id_pelicula, String titulo_pelicula, Date fecha_estreno, String lugar_estreno, int id_critica, Critica critica) {
         this(id_pelicula, titulo_pelicula, fecha_estreno, lugar_estreno, id_critica); // Llama al constructor base
-        this.nombreCritica = nombreCritica; // Asigna el valor adicional
+        this.critica = critica;
     }
 
     // Getters y setters para todos los campos
@@ -71,11 +71,11 @@ public class Pelicula {
         this.id_critica = id_critica;
     }
 
-    public String getNombreCritica() {
-        return nombreCritica;
+    public Critica getCritica() {
+        return critica;
     }
 
-    public void setNombreCritica(String nombreCritica) {
-        this.nombreCritica = nombreCritica;
+    public void setCritica(Critica critica) {
+        this.critica = critica;
     }
 }

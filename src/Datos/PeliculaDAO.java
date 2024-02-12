@@ -63,16 +63,24 @@ public class PeliculaDAO {
 
     public List<Pelicula> obtenerPeliculas() {
         List<Pelicula> peliculas = new ArrayList<>();
-        String sql = "SELECT p.id_pelicula, p.titulo_pelicula, p.fecha_estreno, p.lugar_estreno, p.id_critica, c.nombre_medio AS nombre_critica FROM pelicula p LEFT JOIN critica c ON p.id_critica = c.id_critica";
+        String sql = "SELECT p.id_pelicula, p.titulo_pelicula, p.fecha_estreno, p.lugar_estreno, p.id_critica, c.nombre_medio, c.fecha_publicacion, c.nombre_autor, c.resumen_critica FROM pelicula p LEFT JOIN critica c ON p.id_critica = c.id_critica";
         try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
+                Critica critica = new Critica(
+                        rs.getInt("id_critica"),
+                        rs.getString("nombre_medio"),
+                        rs.getDate("fecha_publicacion"),
+                        rs.getString("nombre_autor"),
+                        rs.getString("resumen_critica")
+                );
+
                 Pelicula pelicula = new Pelicula(
                         rs.getInt("id_pelicula"),
                         rs.getString("titulo_pelicula"),
                         rs.getDate("fecha_estreno"),
                         rs.getString("lugar_estreno"),
                         rs.getInt("id_critica"),
-                        rs.getString("nombre_critica") // Asume que has añadido este campo en tu clase Pelicula
+                        critica
                 );
                 peliculas.add(pelicula);
             }
@@ -84,27 +92,35 @@ public class PeliculaDAO {
 
 
     public Pelicula obtenerPeliculaPorId(int idPelicula) {
-        String sql = "SELECT p.*, c.nombre_medio AS nombre_critica FROM pelicula p LEFT JOIN critica c ON p.id_critica = c.id_critica WHERE p.id_pelicula = ?";
+        String sql = "SELECT p.id_pelicula, p.titulo_pelicula, p.fecha_estreno, p.lugar_estreno, p.id_critica, c.nombre_medio, c.fecha_publicacion, c.nombre_autor, c.resumen_critica FROM pelicula p LEFT JOIN critica c ON p.id_critica = c.id_critica WHERE p.id_pelicula = ?";
         try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, idPelicula);
+        ps.setInt(1, idPelicula);
 
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    Pelicula pelicula = new Pelicula(
-                            rs.getInt("id_pelicula"),
-                            rs.getString("titulo_pelicula"),
-                            rs.getDate("fecha_estreno"),
-                            rs.getString("lugar_estreno"),
-                            rs.getInt("id_critica"),
-                            rs.getString("nombre_critica")
-                    );
-                    return pelicula;
-                }
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                Critica critica = new Critica(
+                        rs.getInt("id_critica"),
+                        rs.getString("nombre_medio"),
+                        rs.getDate("fecha_publicacion"),
+                        rs.getString("nombre_autor"),
+                        rs.getString("resumen_critica")
+                );
+
+                Pelicula pelicula = new Pelicula(
+                        rs.getInt("id_pelicula"),
+                        rs.getString("titulo_pelicula"),
+                        rs.getDate("fecha_estreno"),
+                        rs.getString("lugar_estreno"),
+                        rs.getInt("id_critica"),
+                        critica
+                );
+                return pelicula;
             }
-        } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Error al obtener la película por ID", ex);
         }
-        return null;
+    } catch (SQLException ex) {
+        LOGGER.log(Level.SEVERE, "Error al obtener la película por ID", ex);
     }
+        return null;
+}
 
 }

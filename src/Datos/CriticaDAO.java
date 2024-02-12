@@ -100,4 +100,6 @@ public class CriticaDAO {
         }
         return null;
     }
+
 }
+
