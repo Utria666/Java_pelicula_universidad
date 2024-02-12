@@ -63,7 +63,9 @@ public class CriticaDAO {
     public List<Critica> obtenerCriticas() {
         List<Critica> criticas = new ArrayList<>();
         String sql = "SELECT * FROM critica";
-        try (Connection con = Conexion.obtenerConexion(); Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection con = Conexion.obtenerConexion();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 criticas.add(new Critica(
                         rs.getInt("id_critica"),

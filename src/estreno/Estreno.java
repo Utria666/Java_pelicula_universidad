@@ -151,19 +151,19 @@ public class Estreno {
 //                System.out.println("No se pudo registrar el participante en la pelicula.\n");
 //            }
 ////
-//             //Listar todos los participantes de las películas
-//            System.out.println("                     Listado de los participantes de las películas:");
-//            System.out.println("--------------------------------------------------------------------------------------");
-//            System.out.println("   Nombre pelicula   //   Nombre participante   //   Cargo   //   Papel   //   Sueldo ");
-//            List<PeliculaParticipante> peliculaParticipantes = peliculaParticipanteService.listarPeliculasParticipantes();
-//            for (PeliculaParticipante peliculaParticipante : peliculaParticipantes) {
-//                Pelicula pelicula = peliculaParticipante.getPelicula();
-//                Participante participante = peliculaParticipante.getParticipante();
-//                CargoParticipante cargoParticipante = peliculaParticipante.getCargoParticipante();
-//                TipoPapel tipoPapel = peliculaParticipante.getTipoPapel();
-//                System.out.println(pelicula.getTitulo_pelicula() + " - " + participante.getNombre_participante() + " - " + cargoParticipante.getNombre_cargo() + " - " + tipoPapel.getNombre_papel() + " - " + peliculaParticipante.getSueldo() );
-//            }
-////
+             //Listar todos los participantes de las películas
+            System.out.println("                     Listado de los participantes de las películas:");
+            System.out.println("--------------------------------------------------------------------------------------");
+            System.out.println("   Nombre pelicula   //   Nombre participante   //   Cargo   //   Papel   //   Sueldo ");
+            List<PeliculaParticipante> peliculaParticipantes = peliculaParticipanteService.listarPeliculasParticipantes();
+            for (PeliculaParticipante peliculaParticipante : peliculaParticipantes) {
+                Pelicula pelicula = peliculaParticipante.getPelicula();
+                Participante participante = peliculaParticipante.getParticipante();
+                CargoParticipante cargoParticipante = peliculaParticipante.getCargoParticipante();
+                TipoPapel tipoPapel = peliculaParticipante.getTipoPapel();
+                System.out.println(pelicula.getTitulo_pelicula() + " - " + participante.getNombre_participante() + " - " + cargoParticipante.getNombre_cargo() + " - " + tipoPapel.getNombre_papel() + " - " + peliculaParticipante.getSueldo() );
+            }
+//
 ////            Listar los participantes de una pelicula por id
 //            System.out.println("                     Listado de los participantes de las películas:");
 //            System.out.println("--------------------------------------------------------------------------------------");

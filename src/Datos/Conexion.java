@@ -13,17 +13,15 @@ public class Conexion {
     }
 
     public static Connection obtenerConexion() {
-        if (con == null) {
-            try {
-                Class.forName(DRIVER);
-                con = DriverManager.getConnection(CONNECT_STRING, USER, PASSWORD);
-            } catch (ClassNotFoundException e) {
-                System.out.println("Error: No se encontró el driver de la base de datos: " + e.getMessage());
-            } catch (SQLException e) {
-                System.out.println("Error: No se pudo conectar a la base de datos: " + e.getMessage());
-            }
+        try {
+            Class.forName(DRIVER);
+            return DriverManager.getConnection(CONNECT_STRING, USER, PASSWORD);
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: No se encontró el driver de la base de datos: " + e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Error: No se pudo conectar a la base de datos: " + e.getMessage());
         }
-        return con;
+        return null;
     }
 
     public static void cerrarConexion() {

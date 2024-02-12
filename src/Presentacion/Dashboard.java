@@ -79,7 +79,7 @@ public class Dashboard extends javax.swing.JFrame {
         menus.setPreferredSize(new java.awt.Dimension(270, 640));
 
         btnPelicula.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnPelicula.setText("Pelicula");
+        btnPelicula.setText("Peliculas");
         btnPelicula.setBorder(null);
         btnPelicula.setBorderPainted(false);
         btnPelicula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -187,7 +187,8 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliculaActionPerformed
-        ShowJPanel(new Pelicula());
+        Pelicula peliculaPanel = new Pelicula(this);
+        ShowJPanel(peliculaPanel);
     }//GEN-LAST:event_btnPeliculaActionPerformed
 
     /**
