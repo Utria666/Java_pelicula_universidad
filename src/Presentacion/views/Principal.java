@@ -4,13 +4,11 @@
  */
 package Presentacion.views;
 
-import Presentacion.Dashboard;
 
 public class Principal extends javax.swing.JPanel {
-    private Dashboard dashboard;
+   
     
-    public Principal() {
-        this.dashboard = dashboard;
+    public Principal() {  
         initComponents();
     }
 

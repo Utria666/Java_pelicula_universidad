@@ -5,9 +5,8 @@
 package Presentacion.views;
 
 import Presentacion.Dashboard;
-import Logica.PeliculaService;
-import Datos.Pelicula;
-import Datos.Critica;
+import Logica.ParticipanteService;
+import Datos.Participante;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -17,15 +16,15 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author User
  */
-public class Pelicula extends javax.swing.JPanel {
-    private final PeliculaService peliculaService;
+public class Participante extends javax.swing.JPanel {
+    private final ParticipanteService participanteService;
     private final Dashboard dashboard;
     
-    public Pelicula(Dashboard dashboard) {
+    public Participante(Dashboard dashboard) {
         this.dashboard = dashboard;
         initComponents();
         InitStyles();
-        peliculaService = new PeliculaService();
+        participanteService = new ParticipanteService();
         cargarTablaPeliculas();
     }
     
@@ -40,18 +39,16 @@ public class Pelicula extends javax.swing.JPanel {
         modelo.setRowCount(0); // Limpia la tabla antes de cargar los datos
         
         // Obtiene la lista de películas y las añade al modelo de la tabla
-        List<Pelicula> listaPeliculas = peliculaService.listarPeliculas();
-        for (Pelicula pelicula : listaPeliculas) {
-            Critica critica = pelicula.getCritica();
-            Object[] fila = new Object[8];
-            fila[0] = pelicula.getId_pelicula();
-            fila[1] = pelicula.getTitulo_pelicula();
-            fila[2] = pelicula.getFecha_estreno();
-            fila[3] = pelicula.getLugar_estreno();
-            fila[4] = critica.getNombre_medio();
-            fila[5] = critica.getFecha_publicacion();
-            fila[6] = critica.getNombre_autor();
-            fila[7] = critica.getResumen_critica();
+        List<Participante> listaParticipantes = participanteService.listarTodosLosParticipantes();
+        for (Participante participante : listaParticipantes) {
+            Object[] fila = new Object[7];
+            fila[0] = participante.getId_participante();
+            fila[1] = participante.getNombre_participante();
+            fila[2] = participante.getDireccion();
+            fila[3] = participante.getTelefono();
+            fila[4] = participante.getFecha_nacimiento();
+            fila[5] = participante.getLugar_nacimiento();
+            fila[6] = participante.getEstado_civil();
             modelo.addRow(fila);
         }
     }
@@ -72,7 +69,7 @@ public class Pelicula extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(750, 427));
 
-        title.setText("Peliculas");
+        title.setText("Participante");
 
         searchButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         searchButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -90,22 +87,15 @@ public class Pelicula extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Nombre Pelicula", "Fecha Estreno", "Lugar Estreno", "Programa / Revista", "Fecha Publicacion", "Autor Critica", "Resumen Critica"
+                "ID", "Nombre ", "Direccion", "telefono", "Fecha Nacimiento", "Lugar Nacimiento", "Estado civil"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
         });
         jTable1.getTableHeader().setReorderingAllowed(false);
@@ -226,16 +216,16 @@ public class Pelicula extends javax.swing.JPanel {
             int idPelicula = Integer.parseInt(modelo.getValueAt(filaSeleccionada, 0).toString());
 
             if (dashboard != null) {
-                dashboard.navigateToEditPelicula(idPelicula);
+                dashboard.navigateToEditParticipante(idPelicula);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "No ha seleccionado ninguna película para editar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No ha seleccionado ningun participante para editar", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-       CreatePelicula createPeliculaPanel = new CreatePelicula(dashboard); // Asegúrate de que CreatePelicula acepte Dashboard como argumento si necesita acceso a métodos de Dashboard
-        dashboard.ShowJPanel(createPeliculaPanel); // Utiliza el método existente para mostrar el nuevo panel
+       CreateParticipante createParticipantePanel = new CreateParticipante(dashboard); // Asegúrate de que CreatePelicula acepte Dashboard como argumento si necesita acceso a métodos de Dashboard
+        dashboard.ShowJPanel(createParticipantePanel); // Utiliza el método existente para mostrar el nuevo panel
     
     }//GEN-LAST:event_addButtonActionPerformed
 

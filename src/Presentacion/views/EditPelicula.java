@@ -103,6 +103,17 @@ public class EditPelicula extends javax.swing.JPanel {
     return true;
     }
     
+    private void limpiarCampos() {
+
+        inputNamePelicula.setText("");
+        inputLugarEstreno.setText("");
+        inputDateMoth3.setText("");
+
+        if (inputCritica.getItemCount() > 0) {
+            inputCritica.setSelectedIndex(0);
+        }
+    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -301,8 +312,6 @@ public class EditPelicula extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Error al actualizar la película.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            // Si la validación de entradas falla, no se necesita hacer nada aquí,
-            // el método validarEntradas() ya maneja la notificación al usuario.
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 

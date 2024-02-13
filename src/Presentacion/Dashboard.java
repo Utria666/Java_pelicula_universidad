@@ -39,6 +39,7 @@ public class Dashboard extends javax.swing.JFrame {
     public enum PanelName {
     PRINCIPAL,
     PELICULA,
+    PARTICIPANTE,
     CREATEPELICULA,
     EDITPELICULA,
     }
@@ -51,6 +52,9 @@ public class Dashboard extends javax.swing.JFrame {
                 break;
             case PELICULA:
                 panelToShow = new Pelicula(this); // Asegúrate de que Pelicula acepte Dashboard como argumento
+                break;
+            case PARTICIPANTE:
+                panelToShow = new Participante(this); // Asegúrate de que Pelicula acepte Dashboard como argumento
                 break;
             // Agrega casos para otros paneles
             default:
@@ -79,6 +83,12 @@ public class Dashboard extends javax.swing.JFrame {
         panelEditarPelicula.cargarDatosPelicula(idPelicula);
         ShowJPanel(panelEditarPelicula);
     }
+    
+    public void navigateToEditParticipante(int idParticipante) {
+        EditParticipante panelEditarParticipante = new EditParticipante(this);
+        panelEditarParticipante.cargarDatosParticipante(idParticipante);
+        ShowJPanel(panelEditarParticipante);
+    }
 
 
     @SuppressWarnings("unchecked")
@@ -89,6 +99,7 @@ public class Dashboard extends javax.swing.JFrame {
         menus = new javax.swing.JPanel();
         btnPelicula = new javax.swing.JButton();
         btnPrincipal = new javax.swing.JButton();
+        btnParticipante = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         dateText = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
@@ -102,7 +113,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnPelicula.setText("Peliculas");
         btnPelicula.setBorder(null);
         btnPelicula.setBorderPainted(false);
-        btnPelicula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPelicula.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnPelicula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPeliculaActionPerformed(evt);
@@ -113,10 +124,21 @@ public class Dashboard extends javax.swing.JFrame {
         btnPrincipal.setText("Principal");
         btnPrincipal.setBorder(null);
         btnPrincipal.setBorderPainted(false);
-        btnPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPrincipalActionPerformed(evt);
+            }
+        });
+
+        btnParticipante.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnParticipante.setText("Participantes");
+        btnParticipante.setBorder(null);
+        btnParticipante.setBorderPainted(false);
+        btnParticipante.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnParticipante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnParticipanteActionPerformed(evt);
             }
         });
 
@@ -124,21 +146,20 @@ public class Dashboard extends javax.swing.JFrame {
         menus.setLayout(menusLayout);
         menusLayout.setHorizontalGroup(
             menusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnPelicula, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-            .addGroup(menusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(btnPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+            .addComponent(btnPelicula, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+            .addComponent(btnParticipante, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+            .addComponent(btnPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
         );
         menusLayout.setVerticalGroup(
             menusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menusLayout.createSequentialGroup()
-                .addGap(222, 222, 222)
+                .addGap(166, 166, 166)
+                .addComponent(btnPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(379, Short.MAX_VALUE))
-            .addGroup(menusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(menusLayout.createSequentialGroup()
-                    .addGap(169, 169, 169)
-                    .addComponent(btnPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(429, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(326, Short.MAX_VALUE))
         );
 
         header.setBackground(new java.awt.Color(44, 44, 44));
@@ -154,12 +175,12 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(dateText)
-                .addContainerGap(626, Short.MAX_VALUE))
+                .addContainerGap(616, Short.MAX_VALUE))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
+                .addContainerGap(79, Short.MAX_VALUE)
                 .addComponent(dateText)
                 .addGap(54, 54, 54))
         );
@@ -219,6 +240,10 @@ public class Dashboard extends javax.swing.JFrame {
         navigateTo(PanelName.PRINCIPAL);
     }//GEN-LAST:event_btnPrincipalActionPerformed
 
+    private void btnParticipanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParticipanteActionPerformed
+        navigateTo(PanelName.PARTICIPANTE);
+    }//GEN-LAST:event_btnParticipanteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -236,6 +261,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
+    private javax.swing.JButton btnParticipante;
     private javax.swing.JButton btnPelicula;
     private javax.swing.JButton btnPrincipal;
     private javax.swing.JPanel content;
