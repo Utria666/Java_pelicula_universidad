@@ -5,8 +5,12 @@
 package Presentacion.views;
 
 import Presentacion.Dashboard;
-import Logica.ParticipanteService;
+import Logica.PeliculaParticipanteService;
+import Datos.PeliculaParticipante;
+import Datos.Pelicula;
 import Datos.Participante;
+import Datos.CargoParticipante;
+import Datos.TipoPapel;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -16,15 +20,15 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author User
  */
-public class Participante extends javax.swing.JPanel {
-    private final ParticipanteService participanteService;
+public class ParticipantesPelicula extends javax.swing.JPanel {
+    private final PeliculaParticipanteService peliculaParticipanteService;
     private final Dashboard dashboard;
     
-    public Participante(Dashboard dashboard) {
+    public ParticipantesPelicula(Dashboard dashboard) {
         this.dashboard = dashboard;
         initComponents();
         InitStyles();
-        participanteService = new ParticipanteService();
+        peliculaParticipanteService = new PeliculaParticipanteService();
         cargarTablaPeliculas();
     }
     
@@ -34,21 +38,23 @@ public class Participante extends javax.swing.JPanel {
     }
     
     private void cargarTablaPeliculas() {
-        // Obtiene el modelo de la tabla
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        modelo.setRowCount(0); // Limpia la tabla antes de cargar los datos
+        modelo.setRowCount(0);
         
-        // Obtiene la lista de películas y las añade al modelo de la tabla
-        List<Participante> listaParticipantes = participanteService.listarTodosLosParticipantes();
-        for (Participante participante : listaParticipantes) {
-            Object[] fila = new Object[7];
-            fila[0] = participante.getId_participante();
+        List<PeliculaParticipante> peliculaParticipantes = peliculaParticipanteService.listarPeliculasParticipantes();
+        for (PeliculaParticipante peliculaParticipante : peliculaParticipantes) {
+            
+            Pelicula pelicula = peliculaParticipante.getPelicula();
+            Participante participante = peliculaParticipante.getParticipante();
+            CargoParticipante cargoParticipante = peliculaParticipante.getCargoParticipante();
+            TipoPapel tipoPapel = peliculaParticipante.getTipoPapel();
+            
+            Object[] fila = new Object[5];
+            fila[0] = pelicula.getTitulo_pelicula();
             fila[1] = participante.getNombre_participante();
-            fila[2] = participante.getDireccion();
-            fila[3] = participante.getTelefono();
-            fila[4] = participante.getFecha_nacimiento();
-            fila[5] = participante.getLugar_nacimiento();
-            fila[6] = participante.getEstado_civil();
+            fila[2] = cargoParticipante.getNombre_cargo();
+            fila[3] = tipoPapel.getNombre_papel();
+            fila[4] = peliculaParticipante.getSueldo();
             modelo.addRow(fila);
         }
     }
@@ -87,14 +93,14 @@ public class Participante extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Nombre ", "Direccion", "telefono", "Fecha Nacimiento", "Lugar Nacimiento", "Estado civil"
+                "Nombre Pelicula", "Nombre Participante", "Cargo", "Papel", "Sueldo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -231,8 +237,8 @@ public class Participante extends javax.swing.JPanel {
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-       CreateParticipante createParticipantePanel = new CreateParticipante(dashboard); // Asegúrate de que CreatePelicula acepte Dashboard como argumento si necesita acceso a métodos de Dashboard
-        dashboard.ShowJPanel(createParticipantePanel); // Utiliza el método existente para mostrar el nuevo panel
+       CreateParticipantesPelicula createParticipantesPelicula = new CreateParticipantesPelicula(dashboard); // Asegúrate de que CreatePelicula acepte Dashboard como argumento si necesita acceso a métodos de Dashboard
+        dashboard.ShowJPanel(createParticipantesPelicula); // Utiliza el método existente para mostrar el nuevo panel
     
     }//GEN-LAST:event_addButtonActionPerformed
 

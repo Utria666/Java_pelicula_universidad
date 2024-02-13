@@ -40,6 +40,7 @@ public class Dashboard extends javax.swing.JFrame {
     PRINCIPAL,
     PELICULA,
     PARTICIPANTE,
+    PARTICIPANTESPELICULA,
     CREATEPELICULA,
     EDITPELICULA,
     }
@@ -51,14 +52,16 @@ public class Dashboard extends javax.swing.JFrame {
                 panelToShow = new Principal();
                 break;
             case PELICULA:
-                panelToShow = new Pelicula(this); // Asegúrate de que Pelicula acepte Dashboard como argumento
+                panelToShow = new Pelicula(this); 
                 break;
             case PARTICIPANTE:
-                panelToShow = new Participante(this); // Asegúrate de que Pelicula acepte Dashboard como argumento
+                panelToShow = new Participante(this);
                 break;
-            // Agrega casos para otros paneles
+            case PARTICIPANTESPELICULA:
+                panelToShow = new ParticipantesPelicula(this); 
+                break;
             default:
-                return; // O maneja un caso predeterminado
+                return;
         }
         ShowJPanel(panelToShow);
     }
@@ -100,6 +103,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnPelicula = new javax.swing.JButton();
         btnPrincipal = new javax.swing.JButton();
         btnParticipante = new javax.swing.JButton();
+        btnParticipantesPelicula = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         dateText = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
@@ -142,6 +146,17 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        btnParticipantesPelicula.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnParticipantesPelicula.setText("Personajes de Peliculas");
+        btnParticipantesPelicula.setBorder(null);
+        btnParticipantesPelicula.setBorderPainted(false);
+        btnParticipantesPelicula.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnParticipantesPelicula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnParticipantesPeliculaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menusLayout = new javax.swing.GroupLayout(menus);
         menus.setLayout(menusLayout);
         menusLayout.setHorizontalGroup(
@@ -149,6 +164,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addComponent(btnPelicula, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
             .addComponent(btnParticipante, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
             .addComponent(btnPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+            .addComponent(btnParticipantesPelicula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         menusLayout.setVerticalGroup(
             menusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,7 +175,9 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(btnPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(326, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnParticipantesPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(272, Short.MAX_VALUE))
         );
 
         header.setBackground(new java.awt.Color(44, 44, 44));
@@ -175,12 +193,12 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(dateText)
-                .addContainerGap(616, Short.MAX_VALUE))
+                .addContainerGap(626, Short.MAX_VALUE))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+                .addContainerGap(80, Short.MAX_VALUE)
                 .addComponent(dateText)
                 .addGap(54, 54, 54))
         );
@@ -244,6 +262,10 @@ public class Dashboard extends javax.swing.JFrame {
         navigateTo(PanelName.PARTICIPANTE);
     }//GEN-LAST:event_btnParticipanteActionPerformed
 
+    private void btnParticipantesPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParticipantesPeliculaActionPerformed
+        navigateTo(PanelName.PARTICIPANTESPELICULA);
+    }//GEN-LAST:event_btnParticipantesPeliculaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -262,6 +284,7 @@ public class Dashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JButton btnParticipante;
+    private javax.swing.JButton btnParticipantesPelicula;
     private javax.swing.JButton btnPelicula;
     private javax.swing.JButton btnPrincipal;
     private javax.swing.JPanel content;
