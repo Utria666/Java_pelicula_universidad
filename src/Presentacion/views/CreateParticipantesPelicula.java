@@ -98,8 +98,20 @@ public class CreateParticipantesPelicula extends javax.swing.JPanel {
 
     public boolean validarEntradas() {
     // Validar inputSueldo
-    if (inputSueldo.getText().trim().isEmpty()) {
+    String sueldoStr = inputSueldo.getText().trim();
+    if (sueldoStr.isEmpty()) {
         JOptionPane.showMessageDialog(this, "El campo 'Sueldo' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    try {
+        double sueldo = Double.parseDouble(sueldoStr);
+        if (sueldo < 0) {
+            JOptionPane.showMessageDialog(this, "El campo 'Sueldo' no puede tener valores negativos.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "El campo 'Sueldo' debe contener solo números.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
         return false;
     }
 

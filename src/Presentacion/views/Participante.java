@@ -25,7 +25,7 @@ public class Participante extends javax.swing.JPanel {
         initComponents();
         InitStyles();
         participanteService = new ParticipanteService();
-        cargarTablaPeliculas();
+        cargarTablaParticipante();
     }
     
     private void InitStyles() {
@@ -33,12 +33,10 @@ public class Participante extends javax.swing.JPanel {
     title.setForeground(Color.white);
     }
     
-    private void cargarTablaPeliculas() {
-        // Obtiene el modelo de la tabla
+    private void cargarTablaParticipante() {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        modelo.setRowCount(0); // Limpia la tabla antes de cargar los datos
-        
-        // Obtiene la lista de películas y las añade al modelo de la tabla
+        modelo.setRowCount(0);
+
         List<Participante> listaParticipantes = participanteService.listarTodosLosParticipantes();
         for (Participante participante : listaParticipantes) {
             Object[] fila = new Object[7];
@@ -212,7 +210,23 @@ public class Participante extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MousePressed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        
+        int filaSeleccionada = jTable1.getSelectedRow();
+            if (filaSeleccionada != -1) {
+                int idParticipante = (Integer) jTable1.getValueAt(filaSeleccionada, 0);
+              
+                int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este registro específico?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+                if (confirmacion == JOptionPane.YES_OPTION) {
+                    boolean exito = participanteService.eliminarParticipante(idParticipante);
+                    if (exito) {
+                        JOptionPane.showMessageDialog(this, "Registro eliminado con éxito.", "Eliminación exitosa", JOptionPane.INFORMATION_MESSAGE);
+                        cargarTablaParticipante();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se pudo eliminar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No has seleccionado ninguna fila para eliminar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }        
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
@@ -231,8 +245,8 @@ public class Participante extends javax.swing.JPanel {
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-       CreateParticipante createParticipantePanel = new CreateParticipante(dashboard); // Asegúrate de que CreatePelicula acepte Dashboard como argumento si necesita acceso a métodos de Dashboard
-        dashboard.ShowJPanel(createParticipantePanel); // Utiliza el método existente para mostrar el nuevo panel
+       CreateParticipante createParticipantePanel = new CreateParticipante(dashboard);
+        dashboard.ShowJPanel(createParticipantePanel);
     
     }//GEN-LAST:event_addButtonActionPerformed
 

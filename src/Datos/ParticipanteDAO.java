@@ -16,7 +16,7 @@ public class ParticipanteDAO {
 
             ps.setString(1, participante.getNombre_participante());
             ps.setString(2, participante.getDireccion());
-            ps.setInt(3, participante.getTelefono());
+            ps.setString(3, participante.getTelefono());
             ps.setDate(4, new java.sql.Date(participante.getFecha_nacimiento().getTime()));
             ps.setString(5, participante.getLugar_nacimiento());
             ps.setString(6, participante.getEstado_civil());
@@ -43,7 +43,7 @@ public class ParticipanteDAO {
 
             ps.setString(1, participante.getNombre_participante());
             ps.setString(2, participante.getDireccion());
-            ps.setInt(3, participante.getTelefono());
+            ps.setString(3, participante.getTelefono());
             ps.setDate(4, new java.sql.Date(participante.getFecha_nacimiento().getTime()));
             ps.setString(5, participante.getLugar_nacimiento());
             ps.setString(6, participante.getEstado_civil());
@@ -83,7 +83,7 @@ public class ParticipanteDAO {
                 parti.setId_participante(rs.getInt("id_participante"));
                 parti.setNombre_participante(rs.getString("nombre_participante"));
                 parti.setDireccion(rs.getString("direccion"));
-                parti.setTelefono(rs.getInt("telefono"));
+                parti.setTelefono(rs.getString("telefono"));
                 parti.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
                 parti.setLugar_nacimiento(rs.getString("lugar_nacimiento"));
                 parti.setEstado_civil(rs.getString("estado_civil"));
@@ -111,7 +111,7 @@ public class ParticipanteDAO {
                     participante.setId_participante(rs.getInt("id_participante"));
                     participante.setNombre_participante(rs.getString("nombre_participante"));
                     participante.setDireccion(rs.getString("direccion"));
-                    participante.setTelefono(rs.getInt("telefono"));
+                    participante.setTelefono(rs.getString("telefono"));
                     participante.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
                     participante.setLugar_nacimiento(rs.getString("lugar_nacimiento"));
                     participante.setEstado_civil(rs.getString("estado_civil"));

@@ -61,7 +61,12 @@ public class EditPelicula extends javax.swing.JPanel {
             inputLugarEstreno.setText(pelicula.getLugar_estreno());
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             inputDateMoth3.setText(sdf.format(pelicula.getFecha_estreno()));
-            // Código para ajustar la selección de la crítica...
+            for (int i = 0; i < inputCritica.getItemCount(); i++) {
+                if (inputCritica.getItemAt(i).startsWith(pelicula.getCritica().getId_critica() + " -")) {
+                    inputCritica.setSelectedIndex(i);
+                    break;
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Película no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -70,50 +75,38 @@ public class EditPelicula extends javax.swing.JPanel {
 
 
     public boolean validarEntradas() {
-    // Validar inputNamePelicula
-    if (inputNamePelicula.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "El campo 'Título Película' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
+        // Validar inputNamePelicula
+        if (inputNamePelicula.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo 'Título Película' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
-    // Validar inputLugarEstreno
-    if (inputLugarEstreno.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "El campo 'Lugar de Estreno' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
+        // Validar inputLugarEstreno
+        if (inputLugarEstreno.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo 'Lugar de Estreno' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
-    // Validar inputCritica
-    if (inputCritica.getSelectedIndex() == -1) { // Suponiendo que el índice -1 representa ninguna selección
-        JOptionPane.showMessageDialog(this, "Debe seleccionar una crítica.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
+        // Validar inputCritica
+        if (inputCritica.getSelectedIndex() == -1) { // Suponiendo que el índice -1 representa ninguna selección
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una crítica.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
-    // Validar inputDate con formato "dd/MM/yyyy"
-    String fecha = inputDateMoth3.getText().trim();
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    sdf.setLenient(false); // Esto hace que el parseo sea estricto
-    try {
-        sdf.parse(fecha);
-    } catch (ParseException e) {
-        JOptionPane.showMessageDialog(this, "La fecha debe seguir el formato 'dd/MM/yyyy' y ser válida.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
+        // Validar inputDate con formato "dd/MM/yyyy"
+        String fecha = inputDateMoth3.getText().trim();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false); // Esto hace que el parseo sea estricto
+        try {
+            sdf.parse(fecha);
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(this, "La fecha debe seguir el formato 'dd/MM/yyyy' y ser válida.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
     // Si todas las validaciones son correctas
     return true;
     }
-    
-    private void limpiarCampos() {
-
-        inputNamePelicula.setText("");
-        inputLugarEstreno.setText("");
-        inputDateMoth3.setText("");
-
-        if (inputCritica.getItemCount() > 0) {
-            inputCritica.setSelectedIndex(0);
-        }
-    }
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -281,31 +274,25 @@ public class EditPelicula extends javax.swing.JPanel {
     }//GEN-LAST:event_inputNamePeliculaActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-            // Primero, validar las entradas del usuario
+
         if (validarEntradas()) {
-            // Recuperar los valores ingresados por el usuario
             String titulo = inputNamePelicula.getText();
             String lugarEstreno = inputLugarEstreno.getText();
             Date fechaEstreno;
 
-            // Intentar parsear la fecha de estreno ingresada
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 fechaEstreno = sdf.parse(inputDateMoth3.getText());
             } catch (ParseException e) {
-                // Si el parseo falla, mostrar un mensaje de error y detener la ejecución del método
                 JOptionPane.showMessageDialog(this, "La fecha debe seguir el formato 'dd/MM/yyyy' y ser válida.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Obtener el ID de la crítica seleccionada
             String itemSeleccionado = (String) inputCritica.getSelectedItem();
             int idCritica = Integer.parseInt(itemSeleccionado.split(" - ")[0]);
 
-            // Llamar al método de actualización del servicio con los valores recogidos
             boolean resultado = peliculaService.actualizarPelicula(idPeliculaActual, titulo, fechaEstreno, lugarEstreno, idCritica);
 
-            // Verificar el resultado de la operación y mostrar un mensaje al usuario
             if (resultado) {
                 JOptionPane.showMessageDialog(this, "Película actualizada con éxito.", "Operación Exitosa", JOptionPane.INFORMATION_MESSAGE);
             } else {

@@ -12,12 +12,12 @@ public class ParticipanteService {
         this.participanteDAO = new ParticipanteDAO();
     }
 
-    public boolean registrarParticipante(String nombre, String direccion, int telefono, Date fechaNacimiento, String lugarNacimiento, String estadoCivil) {
+    public boolean registrarParticipante(String nombre, String direccion, String telefono, Date fechaNacimiento, String lugarNacimiento, String estadoCivil) {
         Participante participante = new Participante(0, nombre, direccion, telefono, fechaNacimiento, lugarNacimiento, estadoCivil);
         return participanteDAO.insertarParticipante(participante);
     }
 
-    public boolean actualizarParticipante(int idParticipante, String nombre, String direccion, int telefono, Date fechaNacimiento, String lugarNacimiento, String estadoCivil) {
+    public boolean actualizarParticipante(int idParticipante, String nombre, String direccion, String telefono, Date fechaNacimiento, String lugarNacimiento, String estadoCivil) {
         Participante participante = new Participante(idParticipante, nombre, direccion, telefono, fechaNacimiento, lugarNacimiento, estadoCivil);
         return participanteDAO.actualizarParticipante(participante);
     }

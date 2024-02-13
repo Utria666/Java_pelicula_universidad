@@ -5,7 +5,7 @@ public class Participante {
     private int id_participante;
     private String nombre_participante;
     private String direccion;
-    private int telefono;
+    private String telefono;
     private Date fecha_nacimiento;
     private String lugar_nacimiento;
     private String estado_civil;
@@ -13,7 +13,7 @@ public class Participante {
     public Participante() {
     }
 
-    public Participante(int id_participante, String nombre_participante, String direccion, int telefono, Date fecha_nacimiento, String lugar_nacimiento, String estado_civil) {
+    public Participante(int id_participante, String nombre_participante, String direccion, String telefono, Date fecha_nacimiento, String lugar_nacimiento, String estado_civil) {
         this.id_participante = id_participante;
         this.nombre_participante = nombre_participante;
         this.direccion = direccion;
@@ -41,10 +41,10 @@ public class Participante {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
     public Date getFecha_nacimiento() {

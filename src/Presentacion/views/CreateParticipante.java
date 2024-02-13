@@ -43,46 +43,53 @@ public class CreateParticipante extends javax.swing.JPanel {
     }
 
     public boolean validarEntradas() {
-    // Validar inputNamePelicula
-    if (inputNameParticipante.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "El campo 'Nombre completo participante' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
+        // Validar inputNamePelicula
+        if (inputNameParticipante.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo 'Nombre completo participante' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
-    // Validar inputDireccion
-    if (inputDireccion.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "El campo 'Direccion' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
+        // Validar inputDireccion
+        if (inputDireccion.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo 'Direccion' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
-    // Validar inputDate con formato "dd/MM/yyyy"
-    String fecha = inputFechaNacimiento.getText().trim();
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    sdf.setLenient(false); // Esto hace que el parseo sea estricto
-    try {
-        sdf.parse(fecha);
-    } catch (ParseException e) {
-        JOptionPane.showMessageDialog(this, "La fecha debe seguir el formato 'dd/MM/yyyy' y ser válida.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
-    
-    //Validar inputEstadoCivil
-    if (inputEstadoCivil.getText().trim().isEmpty()){
-        JOptionPane.showMessageDialog(this, "El campo 'Estado Civil' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
-    
-    //Validar inputTelefono
-    if (inputTelefono.getText().trim().isEmpty()){
-        JOptionPane.showMessageDialog(this, "El campo 'Telefono' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
-    
-    //Validar inputLugarNacimiento
-    if (inputLugarNacimiento.getText().trim().isEmpty()){
-        JOptionPane.showMessageDialog(this, "El campo 'Lugar Nacimiento' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
+        // Validar inputDate con formato "dd/MM/yyyy"
+        String fecha = inputFechaNacimiento.getText().trim();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false); // Esto hace que el parseo sea estricto
+        try {
+            sdf.parse(fecha);
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(this, "La fecha debe seguir el formato 'dd/MM/yyyy' y ser válida.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //Validar inputEstadoCivil
+        if (inputEstadoCivil.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "El campo 'Estado Civil' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Validar inputTelefono
+        String telefono = inputTelefono.getText().trim();
+        if (telefono.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo 'Teléfono' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (telefono.length() > 10) {
+            JOptionPane.showMessageDialog(this, "El campo 'Teléfono' no puede contener más de 10 dígitos.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (!telefono.matches("\\d+")) { // Esta expresión regular verifica que solo haya dígitos
+            JOptionPane.showMessageDialog(this, "El campo 'Teléfono' solo puede contener números.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //Validar inputLugarNacimiento
+        if (inputLugarNacimiento.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "El campo 'Lugar Nacimiento' no puede estar vacío.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
     // Si todas las validaciones son correctas
     return true;
@@ -136,7 +143,7 @@ public class CreateParticipante extends javax.swing.JPanel {
 
         txtLugarEstreno.setText("Telefono");
 
-        txtFecha.setText("Fecha Nacimiento");
+        txtFecha.setText("Fecha Nacimiento dd/mm/yyyy");
 
         inputFechaNacimiento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         inputFechaNacimiento.addActionListener(new java.awt.event.ActionListener() {
@@ -187,14 +194,13 @@ public class CreateParticipante extends javax.swing.JPanel {
                         .addComponent(txtLugarEstreno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(504, 504, 504))
                     .addGroup(bg4Layout.createSequentialGroup()
-                        .addComponent(inputNameParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(bg4Layout.createSequentialGroup()
-                        .addComponent(inputTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(412, 412, 412))
-                    .addGroup(bg4Layout.createSequentialGroup()
                         .addComponent(txtNamePelicula, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                        .addGap(524, 524, 524))))
+                        .addGap(524, 524, 524))
+                    .addGroup(bg4Layout.createSequentialGroup()
+                        .addGroup(bg4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputNameParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(bg4Layout.createSequentialGroup()
                 .addGroup(bg4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bg4Layout.createSequentialGroup()
@@ -295,7 +301,7 @@ public class CreateParticipante extends javax.swing.JPanel {
         if (validarEntradas()) {
         String nombre = inputNameParticipante.getText().trim();
         String direccion = inputDireccion.getText().trim();
-        int telefono = Integer.parseInt(inputTelefono.getText().trim());
+        String telefono = inputTelefono.getText().trim();
         String fechaString= inputFechaNacimiento.getText().trim();
         String lugarNacimiento = inputLugarNacimiento.getText().trim();
         String estadoCivil = inputEstadoCivil.getText().trim();

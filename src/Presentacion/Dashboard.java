@@ -4,7 +4,6 @@
  */
 package Presentacion;
 
-
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
 import Presentacion.views.*;
@@ -41,6 +40,7 @@ public class Dashboard extends javax.swing.JFrame {
     PELICULA,
     PARTICIPANTE,
     PARTICIPANTESPELICULA,
+    PREMIOS,
     CREATEPELICULA,
     EDITPELICULA,
     }
@@ -59,6 +59,9 @@ public class Dashboard extends javax.swing.JFrame {
                 break;
             case PARTICIPANTESPELICULA:
                 panelToShow = new ParticipantesPelicula(this); 
+                break;
+            case PREMIOS:
+                panelToShow = new Premios(this); 
                 break;
             default:
                 return;
@@ -93,7 +96,12 @@ public class Dashboard extends javax.swing.JFrame {
         ShowJPanel(panelEditarParticipante);
     }
 
-
+    public void navigateToEditPremioPelicula(int idPelicula) {
+        EditPremios panelPremios = new EditPremios(this);
+        panelPremios.cargarDatosPremiosPelicula(idPelicula);
+        ShowJPanel(panelPremios);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -104,6 +112,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnPrincipal = new javax.swing.JButton();
         btnParticipante = new javax.swing.JButton();
         btnParticipantesPelicula = new javax.swing.JButton();
+        btnPremios = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         dateText = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
@@ -157,6 +166,17 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        btnPremios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnPremios.setText("Premios");
+        btnPremios.setBorder(null);
+        btnPremios.setBorderPainted(false);
+        btnPremios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnPremios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPremiosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menusLayout = new javax.swing.GroupLayout(menus);
         menus.setLayout(menusLayout);
         menusLayout.setHorizontalGroup(
@@ -165,6 +185,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addComponent(btnParticipante, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
             .addComponent(btnPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
             .addComponent(btnParticipantesPelicula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnPremios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         menusLayout.setVerticalGroup(
             menusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +198,9 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(btnParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnParticipantesPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(272, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPremios, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(218, Short.MAX_VALUE))
         );
 
         header.setBackground(new java.awt.Color(44, 44, 44));
@@ -266,6 +289,10 @@ public class Dashboard extends javax.swing.JFrame {
         navigateTo(PanelName.PARTICIPANTESPELICULA);
     }//GEN-LAST:event_btnParticipantesPeliculaActionPerformed
 
+    private void btnPremiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPremiosActionPerformed
+        navigateTo(PanelName.PREMIOS);
+    }//GEN-LAST:event_btnPremiosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -286,6 +313,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnParticipante;
     private javax.swing.JButton btnParticipantesPelicula;
     private javax.swing.JButton btnPelicula;
+    private javax.swing.JButton btnPremios;
     private javax.swing.JButton btnPrincipal;
     private javax.swing.JPanel content;
     private javax.swing.JLabel dateText;

@@ -90,7 +90,7 @@ public class PeliculaParticipanteDAO {
                         rs.getInt("id_participante"),
                         rs.getString("nombre_participante"),
                         null,
-                        0,
+                        null,
                         null,
                         null,
                         null
@@ -164,7 +164,7 @@ public class PeliculaParticipanteDAO {
                             rs.getInt("id_participante"),
                             rs.getString("nombre_participante"),
                             null,
-                            0,
+                            null,
                             null,
                             null,
                             null

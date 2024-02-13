@@ -51,7 +51,7 @@ public class EditParticipante extends javax.swing.JPanel {
             inputNameParticipante.setText(participante.getNombre_participante());
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             inputFechaNacimiento.setText(sdf.format(participante.getFecha_nacimiento()));
-            inputTelefono.setText(String.valueOf(participante.getTelefono()));
+            inputTelefono.setText(participante.getTelefono());
             inputDireccion.setText(participante.getDireccion());
             inputLugarNacimiento.setText(participante.getLugar_nacimiento());
             inputEstadoCivil.setText(participante.getEstado_civil());
@@ -139,7 +139,7 @@ public class EditParticipante extends javax.swing.JPanel {
 
         txtLugarEstreno.setText("Telefono");
 
-        txtFecha.setText("Fecha Nacimiento");
+        txtFecha.setText("Fecha Nacimiento \"dd/mm/yyyy\"");
 
         inputFechaNacimiento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         inputFechaNacimiento.addActionListener(new java.awt.event.ActionListener() {
@@ -295,29 +295,24 @@ public class EditParticipante extends javax.swing.JPanel {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (validarEntradas()) {
-            // Recuperar los valores ingresados por el usuario
             String nombre = inputNameParticipante.getText();
             String direccion = inputDireccion.getText();
-            int telefono = Integer.parseInt(inputTelefono.getText());
+            String telefono = inputTelefono.getText();
             Date fechaNacimiento;
             String lugarNacimiento = inputLugarNacimiento.getText();
             String estadoCivil = inputEstadoCivil.getText();
             
 
-            // Intentar parsear la fecha de estreno ingresada
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 fechaNacimiento = sdf.parse(inputFechaNacimiento.getText());
             } catch (ParseException e) {
-                // Si el parseo falla, mostrar un mensaje de error y detener la ejecución del método
                 JOptionPane.showMessageDialog(this, "La fecha debe seguir el formato 'dd/MM/yyyy' y ser válida.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Llamar al método de actualización del servicio con los valores recogidos
             boolean resultado = participanteService.actualizarParticipante(idParticipanteActual, nombre, direccion, telefono, fechaNacimiento,lugarNacimiento,estadoCivil);
 
-            // Verificar el resultado de la operación y mostrar un mensaje al usuario
             if (resultado) {
                 JOptionPane.showMessageDialog(this, "Participante actualizada con éxito.", "Operación Exitosa", JOptionPane.INFORMATION_MESSAGE);
                 btnRegresar.doClick();

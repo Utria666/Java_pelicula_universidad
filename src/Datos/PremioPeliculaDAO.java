@@ -44,18 +44,21 @@ public class PremioPeliculaDAO {
         return false;
     }
 
-    public boolean eliminarPremioPelicula(int id_premio, int id_pelicula){
-        String sql = "DELETE FROM premio_pelicula WHERE id_premio = ? AND id_pelicula = ?";
+    public boolean eliminarPremioPeliculaEspecifico(int id_premio, int id_pelicula, String nombre_certamen, String ciudad_celebracion) {
+        String sql = "DELETE FROM premio_pelicula WHERE id_premio = ? AND id_pelicula = ? AND nombre_certamen = ? AND ciudad_celebracion = ?";
         try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id_premio);
             ps.setInt(2, id_pelicula);
+            ps.setString(3, nombre_certamen);
+            ps.setString(4, ciudad_celebracion);
 
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Error al eliminar el premio - pelicula", ex);
+            LOGGER.log(Level.SEVERE, "Error al eliminar el premio-pelicula específico", ex);
         }
         return false;
     }
+
 
 
     public List<PremioPelicula> obtenerPremiosPeliculas(){

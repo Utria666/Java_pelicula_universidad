@@ -23,8 +23,8 @@ public class PremioPeliculaService {
         return premioPeliculaDAO.actualizarPremioPelicula(premioPelicula);
     }
 
-    public boolean eliminarPremioPelicula(int id_premio, int id_pelicula){
-        return premioPeliculaDAO.eliminarPremioPelicula(id_premio, id_pelicula);
+    public boolean eliminarPremioPelicula(int id_premio, int id_pelicula, String nombre_certamen, String ciudad_celebracion){
+        return premioPeliculaDAO.eliminarPremioPeliculaEspecifico(id_premio, id_pelicula,nombre_certamen,ciudad_celebracion);
     }
 
     public List<PremioPelicula> listarPremiosPeliculas(){

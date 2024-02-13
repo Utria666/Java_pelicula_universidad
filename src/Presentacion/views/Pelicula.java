@@ -35,11 +35,9 @@ public class Pelicula extends javax.swing.JPanel {
     }
     
     private void cargarTablaPeliculas() {
-        // Obtiene el modelo de la tabla
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        modelo.setRowCount(0); // Limpia la tabla antes de cargar los datos
+        modelo.setRowCount(0);
         
-        // Obtiene la lista de películas y las añade al modelo de la tabla
         List<Pelicula> listaPeliculas = peliculaService.listarPeliculas();
         for (Pelicula pelicula : listaPeliculas) {
             Critica critica = pelicula.getCritica();
@@ -215,7 +213,23 @@ public class Pelicula extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MousePressed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        
+        int filaSeleccionada = jTable1.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            int idPelicula = (Integer) jTable1.getValueAt(filaSeleccionada, 0);
+           
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este registro específico?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                boolean exito = peliculaService.eliminarPelicula(idPelicula);
+                if (exito) {
+                    JOptionPane.showMessageDialog(this, "Registro eliminado con éxito.", "Eliminación exitosa", JOptionPane.INFORMATION_MESSAGE);
+                    cargarTablaPeliculas();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No has seleccionado ninguna fila para eliminar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
@@ -234,8 +248,8 @@ public class Pelicula extends javax.swing.JPanel {
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-       CreatePelicula createPeliculaPanel = new CreatePelicula(dashboard); // Asegúrate de que CreatePelicula acepte Dashboard como argumento si necesita acceso a métodos de Dashboard
-        dashboard.ShowJPanel(createPeliculaPanel); // Utiliza el método existente para mostrar el nuevo panel
+       CreatePelicula createPeliculaPanel = new CreatePelicula(dashboard);
+        dashboard.ShowJPanel(createPeliculaPanel);
     
     }//GEN-LAST:event_addButtonActionPerformed
 
